@@ -1,0 +1,42 @@
+version: "3"
+services:
+  app_mutinho:
+    build:
+      context: .
+      dockerfile: ./devops/Dockerfile.local
+    ports:
+      - 82:8000
+      - 5173:5173
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - plataforma_mutinho
+    tty: true
+    container_name: app_mutinho
+  mysql_app_mutinho:
+    image: mariadb:10.3
+    entrypoint: docker-entrypoint.sh --sql-mode='STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
+    ports:
+      - 3306:3306
+    networks:
+      - plataforma_mutinho
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=123456
+      - MYSQL_DATABASE=plataforma_mutinho
+    container_name: mysql_app_mutinho
+  phpmyadmin_nova_base:
+    image: beeyev/phpmyadmin-lightweight
+    ports:
+      - 8181:80
+    networks:
+      - plataforma_mutinho
+    environment:
+      PMA_HOST: mysql_app_mutinho
+      PMA_THEME: BooDark
+      UPLOAD_LIMIT: 2000M
+    container_name: phpmyadmin_nova_base
+networks:
+  plataforma_mutinho:
+    driver: bridge
