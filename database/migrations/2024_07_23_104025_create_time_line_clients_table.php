@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('information_clients', function (Blueprint $table) {
+        Schema::create('time_line_clients', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('lead')->nullable();
+            $table->string('date')->nullable();
+            $table->string('image')->nullable();
+            $table->string('audio')->nullable();
             $table->text('description');
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
@@ -21,15 +25,16 @@ return new class extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
         
-        Schema::table('information_clients', function (Blueprint $table) {
+        Schema::table('timeline_clients', function (Blueprint $table) {
             $table->dropForeign(['client_id']);
         });
-        Schema::dropIfExists('information_clients');
+        Schema::dropIfExists('timeline_clients');
     }
 };

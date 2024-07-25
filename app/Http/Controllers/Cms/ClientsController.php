@@ -35,7 +35,7 @@ class ClientsController extends RestrictedController
       ]
     );
     #LISTA DE ITENS
-    $titles = json_encode(["#", "Status", "Nome", "E-mail", "CPF", "Imagem"]);
+    $titles = json_encode(["#", "Imagem", "Status", "Nome", "E-mail", "CPF", ]);
     $actions = json_encode([
       [
         'path' => '{item}/edit',
@@ -44,7 +44,7 @@ class ClientsController extends RestrictedController
         'color' => 'primary',
       ],
       [
-        'path' => '{item}/informations',
+        'path' => '{item}/timeline',
         'icon' => 'fa fa-info-circle',
         'label' => 'Sobre o cliente',
         'color' => 'primary',
@@ -59,7 +59,7 @@ class ClientsController extends RestrictedController
       }
       $pagination = 500;
     }
-    $items = Clients::select('id', 'active', 'name', 'email', "CPF", 'image')
+    $items = Clients::select('id', 'image', 'active', 'name', 'email', "CPF",)
       ->where(function ($query) use ($data) {
         if (!empty($data['busca'])) {
           $query->where('name', 'LIKE', "%" . $data['busca'] . "%");
@@ -204,10 +204,29 @@ class ClientsController extends RestrictedController
   private function validation(array $data)
   {
     $validator = [
-      'active' => 'nullable|boolean',
+      'cpf' => 'required|string|max:14|unique:clients',
+      'name' => 'required|string|max:255',
+      'email' => 'required|string|email|max:255|unique:clients',
+/*       'whatsapp' => 'required|string|max:255', 
+      'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', */
+
     ];
 
-    $messages = [];
+    $messages = [
+      'image' => 'A imagem não pode ser carregada',
+      'image.required' => 'É necessário preencher o campo de imagem',
+      'name.required' => 'É necessário preencher o campo de nome',
+      'email.required' => 'É necessário preencher o campo de email',
+      'whatsapp.required' => 'É necessário preencher o campo de whatsapp',
+      'cpf.required' => 'É necessário preencher o campo de cpf',
+      'cpf.max' => 'O número máximo de caracteres é de 14',
+      'name.max' => 'O número máximo de caracteres é de 255',
+      'email.max' => 'O número máximo de caracteres é de 255',
+      'whatsapp.max' => 'O número máximo de caracteres é de 255',
+      'email.unique' => 'O e-mail informado já está em uso',
+      'cpf.unique' => 'O CPF informado já está em uso',
+    
+    ];
 
 
     $valid = Validator::make($data, $validator, $messages);

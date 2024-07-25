@@ -131,8 +131,8 @@
 					<div class="row form-group{{ $errors->has('description') ? ' has-error' : '' }}">
 						<label for="description" class="col-xl-2 col-lg-2 col-sm-2 col-12 text-lg-right text-sm-left">Conteúdo*</label>
 						<div class="col-xl-10 col-lg-10 col-sm-10 col-12">
-							<textarea url="{{ route('upload-images') }}" name="description" id="full_textarea" value="{{ old('description') }}">
-                            </textarea>
+							<ui-textarea url="{{ route('upload-images') }}" name="description" id="full_textarea" value="{{ old('description') }}">
+                            </ui-textarea>
 							@if ($errors->has('description'))
 							<span class="help-block">
 								<strong>{{ $errors->first('description') }}</strong>

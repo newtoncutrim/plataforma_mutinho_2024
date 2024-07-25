@@ -30,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
   Route::resource('configurations', 'Cms\ConfigurationController');
   Route::resource('pages', 'Cms\PageController');
   Route::resource('clients', 'Cms\ClientsController');
-  Route::resource('clients.informations', 'Cms\InformationClientController');
+  Route::resource('clients.timeline', 'Cms\TimeLineClientController');
 
 
   Route::prefix('blog')->group(function () {

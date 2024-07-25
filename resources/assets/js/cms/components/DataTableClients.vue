@@ -52,7 +52,7 @@
                 :style="isMultiBadge(field) ? 'max-width: 300px' : ''">
                 <span v-if="field === null">{{ field }}</span>
                 <span v-else-if="index === 'image'">
-                  <img :src="urlsistem + '/' +field" style="max-width: 60px; max-height: 60px; border-radius: 50%;" />
+                  <img :src="urlsistem + '/' +field" style="width: 60px; height: 60px; border-radius: 50%;" />
                 </span>
                 <span v-html="field" v-else-if="!field.type && !Array.isArray(field)"></span>
                 <span v-else-if="field.type == 'config'" class="badge" style="font-size: 14px"
