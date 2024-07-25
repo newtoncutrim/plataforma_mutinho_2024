@@ -12,6 +12,7 @@ class TimeLineClient extends Model
     protected $fillable = [
         'title',
         'lead',
+        'active',
         'date',
         'image',
         'audio',

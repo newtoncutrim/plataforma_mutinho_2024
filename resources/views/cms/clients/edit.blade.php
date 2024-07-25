@@ -27,7 +27,7 @@
                     <div class="row">
                         <label class="col-sm-4 control-label" for="cpf">CPF*</label>
                         <div class="col-sm-8">
-                            <input required class="form-control" id="cpf" minlength="0" name="cpf"
+                            <ui-cpf required class="form-control" id="cpf" minlength="0" name="cpf"
                                 type="text" value="{{ $clients->cpf }}">
                             @if ($errors->has('cpf'))
                                 <span class="help-block">
@@ -73,7 +73,7 @@
                     <div class="row">
                         <label class="col-sm-4 control-label" for="whatsapp">WhatsApp*</label>
                         <div class="col-sm-8">
-                            <input required class="form-control" id="whatsapp" minlength="0" name="whatsapp"
+                            <ui-phone required class="form-control" id="whatsapp" minlength="0" name="whatsapp"
                                 type="text" value="{{ $clients->whatsapp }}">
                             @if ($errors->has('whatsapp'))
                                 <span class="help-block">
@@ -100,19 +100,31 @@
             --}}
             <div class="row form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                 <label class="col-xl-2 col-lg-2 col-sm-2 col-12 text-lg-right text-sm-left">Imagem*</label>
-                <div class="col-xl-10 col-lg-10 col-sm-10 col-12">
-                    <input type="file" aria-label="Nome" name="image" required >
-                    @if ($errors->has('image'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('image') }}</strong>
-                    </span>
-                    @endif
+                <div class="col-sm-10">
+                    <div class="row">
+                        @if (strlen($clients->image) > 0)
+                            <div class="col-md-2 col-xs-4">
+                                <img src="{{ asset($clients->image) }}" style="width:100%" >
+                            </div>
+                        @endif
+                        <div class="col-xl-10 col-lg-10 col-sm-10 col-12">
+                            <input type="file" name="image">
+                            <input type="hidden" aria-label="Nome" aria-label="Nome" name="old-image"
+                                value="{{ $clients->image }}">
+                            <span class="help-block">
+                                Para manter a imagem atual, não preencha esse campo
+                            </span>
+                            @if ($errors->has('image'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('image') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
                     <span class="help-block">
                         Tamanho e formato recomendado: 800x450px JPG
                     </span>
-                    <a href="{{ $clients->image }}" target="_blank">Ver imagem atual</a>
                 </div>
-                
             </div>
 {{--             <div class="row form-group">
                 @foreach ($inputs as $key => $item)

@@ -46,7 +46,7 @@ class ClientsController extends RestrictedController
       [
         'path' => '{item}/timeline',
         'icon' => 'fa fa-info-circle',
-        'label' => 'Sobre o cliente',
+        'label' => 'Linha do Tempo',
         'color' => 'primary',
       ],
     ]);
@@ -134,20 +134,7 @@ class ClientsController extends RestrictedController
     );
 
     $clients = Clients::find($id);
-    /* $clients = Clients::select(
-      'id',
-      'active',
-      'email as E-mail',
-      'name as Nome'      
-    )
-    ->where('id',$id)->first();
 
-    if (empty($clients)) {
-      return redirect()->back();
-    }
-
-    $inputs = $clients->toArray();
-    unset($inputs['id'],$inputs['active']); */
     $clients->image = asset($clients->image);
     
     return view('cms.clients.edit', compact('headers', 'clients'));

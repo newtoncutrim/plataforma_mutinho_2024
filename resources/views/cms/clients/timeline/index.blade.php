@@ -7,7 +7,7 @@
                     {'icon' : 'fa fa-list', 'title' : 'Lista de Registros', 'active' : false},
                     { 'icon': 'fa fa-plus', 'title': 'Cadastro de Registros', 'active': false },
                 ]" active-tab="{{$errors->any() ? 1 : 0}}">
-            <data-table slot="tabslot_0" title="Lista de Registros" busca="{{$busca}}" url="{{ $data['request']->url() }}" token="{{ csrf_token() }}" :items="{{ json_encode($items) }}" :titles="{{$titles}}" :actions="{{ $actions }}" :not-deletable="false" :show-busca="true" >
+            <data-table slot="tabslot_0" title="Lista de Registros" busca="{{$busca}}" url="{{ $data['request']->url() }}" token="{{ csrf_token() }}" :items="{{ json_encode($items) }}" :titles="{{$titles}}" :actions="{{ $actions }}" :not-deletable="false" :show-busca="true" urlsistem="{{ url('/') }}">
                 @if(session()->has('message'))
                 <div class="row">
                     <div class="col-sm-12">
@@ -19,7 +19,7 @@
                 <span slot="pagination" class="pull-right">
                     {{ $items->links() }}
                 </span>
-            </data-table>
+            </data-table-cli>
             <div slot="tabslot_1">
                 <ui-form form-class="form-horizontal" title="Adicionar Registro" token="{{ csrf_token() }}" url="{{ route('clients.timeline.store', $clients->id) }}" cancel-url="{{ route('clients.timeline.index', $clients->id) }}" method="POST">
 
@@ -32,14 +32,14 @@
                                 </div>
                             </div>
                     @endif
-                    <div class="row form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+                    <div class="row form-group{{ $errors->has('active') ? ' has-error' : '' }}">
                         <label class="col-xl-2 col-lg-2 col-sm-2 col-12 text-lg-right text-sm-left">Status</label>
                         <div class="col-xl-10 col-lg-10 col-sm-10 col-12">
-                            <input type="checkbox" aria-label="Nome" name="status" id="status" value="1"
-                                {{ old('status') ? (old('status') ? 'checked' : '') : 'checked' }}> Ativo
-                            @if ($errors->has('status'))
+                            <input type="checkbox" aria-label="Nome" name="active" id="active" value="1"
+                                {{ old('active') ? (old('active') ? 'checked' : '') : 'checked' }}> Ativo
+                            @if ($errors->has('active'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('status') }}</strong>
+                                    <strong>{{ $errors->first('active') }}</strong>
                                 </span>
                             @endif
                         </div>

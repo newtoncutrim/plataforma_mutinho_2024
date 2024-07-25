@@ -33,7 +33,7 @@ class TimeLineClientController extends RestrictedController
             ]
         );
         #LISTA DE ITENS
-        $titles = json_encode(["#", "Titulo", "Descricão"]);
+        $titles = json_encode(["#","Ativo", "Titulo", "Sub Título", "Data", "Imagem"]);
         $actions = json_encode([
             [
                 'path' => '{item}/edit',
@@ -51,7 +51,7 @@ class TimeLineClientController extends RestrictedController
             }
             $pagination = 500;
         }
-        $items = TimeLineClient::select('id', 'title', 'description')->where('client_id', $id)
+        $items = TimeLineClient::select('id',"active" ,'title', 'lead', 'date', 'image')->where('client_id', $id)
             ->where(function ($query) use ($data) {
                 if (!empty($data['busca'])) {
                     $query->where('title', 'LIKE', "%" . $data['busca'] . "%");
@@ -63,7 +63,14 @@ class TimeLineClientController extends RestrictedController
             })->orderBy('id', 'asc')
             ->paginate($pagination);
 
-        
+            foreach ($items as $item) {
+                $item['active'] = [
+                  'type' => 'badge',
+                  'status' => $item['active'] == 1 ? 'success' : 'danger',
+                  'text' => $item['active'] == 1 ? 'Ativo' : 'Inativo'
+                ];
+            }
+
         return view('cms.clients.timeline.index', compact('headers', 'titles', 'items', 'busca', 'actions', 'clients'));
     }
 
@@ -100,6 +107,7 @@ class TimeLineClientController extends RestrictedController
         }
         
 
+        $data['active'] = CmsHelper::CheckboxCheck(isset($data['active']));
         $data['client_id'] = $client_id;
         TimeLineClient::create($data);
         
@@ -115,8 +123,28 @@ class TimeLineClientController extends RestrictedController
             return redirect()->back()->withErrors($validation)->withInput();
         }
 
-        $information = TimeLineClient::where('id', $id)->first();
-        $information->update($data);
+        $timeline = TimeLineClient::where('id', $id)->first();
+       
+        $image = $timeline->image;
+        if ($request->hasFile('image')) {
+          if (!$image = $this->uploadValidFile('timeline', $data['image'], 800)) {
+            return redirect()->back()->withErrors(['errors' => 'image cannot be uploaded'])->withInput(); 
+          }
+          unlink($timeline->image);
+
+          $data['image'] = $image;
+        }
+
+        if ($request->hasFile('audio')) {
+          if (!$audio = $this->uploadValidFile('timeline', $data['audio'])) {
+            return redirect()->back()->withErrors(['errors' => 'Audio cannot be uploaded'])->withInput();
+          }
+          unlink($timeline->audio);
+          $data['audio'] = $audio;
+        }
+
+        $data['active'] = CmsHelper::CheckboxCheck(isset($data['active']));
+        $timeline->update($data);
 
         return redirect()->route('clients.timeline.index', $client_id)->with('message', 'Registro atualizado com sucesso!');
     }
@@ -125,7 +153,7 @@ class TimeLineClientController extends RestrictedController
     {
         #PAGE TITLE E BREADCRUMBS
         $headers = parent::headers(
-            "Itens do Contrato",
+            "Timeline do Cliente",
             [
                 ["icon" => "", "title" => "Itens", "url" => route('clients.timeline.index', [$id_product, $item_doc])],
                 ["icon" => "", "title" => "Editar", "url" => ""],

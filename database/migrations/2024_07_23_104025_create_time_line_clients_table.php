@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('time_line_clients', function (Blueprint $table) {
             $table->id();
+            $table->boolean('active')->nullable()->default(0);
             $table->string('title');
             $table->string('lead')->nullable();
             $table->string('date')->nullable();
             $table->string('image')->nullable();
             $table->string('audio')->nullable();
+            $table->string('video')->nullable();
             $table->text('description');
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');

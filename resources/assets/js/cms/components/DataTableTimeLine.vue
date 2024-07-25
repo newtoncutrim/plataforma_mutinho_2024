@@ -135,7 +135,7 @@ export default {
     "notDeletable",
     "actions",
     "isFather",
-    "urlsistem",
+    "urlsistem"
   ],
   data: function () {
     return {

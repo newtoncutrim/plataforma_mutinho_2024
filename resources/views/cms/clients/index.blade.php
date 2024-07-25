@@ -54,7 +54,7 @@
                                 <div class="row">
                                     <label class="col-sm-4 control-label" for="cpf">CPF*</label>
                                     <div class="col-sm-8">
-                                        <input required class="form-control" id="cpf" minlength="0" name="cpf"
+                                        <ui-cpf required class="form-control" id="cpf" minlength="0" name="cpf"
                                             type="text" value="{{ old('cpf') }}">
                                         @if ($errors->has('cpf'))
                                             <span class="help-block">
