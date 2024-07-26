@@ -7,8 +7,8 @@
                 :tabs="[
                     { 'icon': 'fa fa-list', 'title': 'Lista de Registros', 'active': false },
                     { 'icon': 'fa fa-plus', 'title': 'Cadastro de Registros', 'active': false },
-                ]" active-tab="{{$errors->any() ? 1 : 0}}"
-                active-tab="0">
+                ]"
+                active-tab="{{ $errors->any() ? 1 : 0 }}" active-tab="0">
                 <data-table-clients slot="tabslot_0" title="Lista de Registros" busca="{{ $busca }}"
                     url="{{ $data['request']->url() }}" token="{{ csrf_token() }}" :items="{{ json_encode($items) }}"
                     :titles="{{ $titles }}" :actions="{{ $actions }}" :not-deletable="false"
@@ -27,7 +27,7 @@
                 </data-table-clients>
                 <div slot="tabslot_1">
                     <ui-form form-class="form-horizontal" title="Adicionar Registro" token="{{ csrf_token() }}"
-                        url="{{ route('clients.store') }}"  method="POST">
+                        url="{{ route('clients.store') }}" method="POST">
                         @if ($errors->any())
                             <div class="row">
                                 <div class="col-sm-12">
@@ -54,13 +54,9 @@
                                 <div class="row">
                                     <label class="col-sm-4 control-label" for="cpf">CPF*</label>
                                     <div class="col-sm-8">
-                                        <ui-cpf required class="form-control" id="cpf" minlength="0" name="cpf"
-                                            type="text" value="{{ old('cpf') }}">
-                                        @if ($errors->has('cpf'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('cpf') }}</strong>
-                                            </span>
-                                        @endif
+                                        <ui-cpf required class_name="form-control" name="cpf"
+                                            value="{{ old('cpf') }}" :error="{{ json_encode($errors->first('cpf')) }}">
+                                        </ui-cpf>
                                     </div>
                                 </div>
                             </div>
@@ -80,6 +76,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <div class="col-sm-6{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <div class="row">
@@ -100,13 +97,13 @@
                                 <div class="row">
                                     <label class="col-sm-4 control-label" for="whatsapp">WhatsApp*</label>
                                     <div class="col-sm-8">
-                                        <ui-phone required class="form-control" id="whatsapp" minlength="0" name="whatsapp"
-                                            type="text" value="{{ old('whatsapp') }}">
-                                        @if ($errors->has('whatsapp'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('whatsapp') }}</strong>
-                                            </span>
-                                        @endif
+                                        <ui-phone required class="form-control" id="whatsapp" minlength="0"
+                                            name="whatsapp" type="text" value="{{ old('whatsapp') }}">
+                                            @if ($errors->has('whatsapp'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('whatsapp') }}</strong>
+                                                </span>
+                                            @endif
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +134,8 @@
                                 <span class="help-block">
                                     Tamanho e formato recomendado: 800x450px JPG
                                 </span>
-                                <img id="preview" src="" alt="Pré-visualização da imagem" style="max-width: 200px; display: none;">
+                                <img id="preview" src="" alt="Pré-visualização da imagem"
+                                    style="max-width: 200px; display: none;">
 
                             </div>
                         </div>
@@ -160,8 +158,6 @@
                     }
                 });
             });
-
-            
         </script>
     </div>
 @endsection

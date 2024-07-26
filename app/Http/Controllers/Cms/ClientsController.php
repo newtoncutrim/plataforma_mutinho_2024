@@ -13,7 +13,7 @@ use App\Http\Controllers\Cms\RestrictedController;
 class ClientsController extends RestrictedController
 {
   use UploadTrait;
-  Use SlugTrait;
+  use SlugTrait;
 
   /**
    * Display a listing of the resource.
@@ -35,7 +35,7 @@ class ClientsController extends RestrictedController
       ]
     );
     #LISTA DE ITENS
-    $titles = json_encode(["#", "Imagem", "Status", "Nome", "E-mail", "CPF", ]);
+    $titles = json_encode(["#", "Imagem", "Status", "Nome", "E-mail", "CPF",]);
     $actions = json_encode([
       [
         'path' => '{item}/edit',
@@ -93,8 +93,9 @@ class ClientsController extends RestrictedController
   {
     $data = $request->all();
 
-    $validation = $this->validation($data, 'store');
+    $validation = $this->validation($data, null);
     if ($validation->fails()) {
+     /*  dd($validation); */
       return redirect()->back()->withErrors($validation)->withInput();
     }
 
@@ -104,7 +105,7 @@ class ClientsController extends RestrictedController
       }
     }
 
-    if (!empty($image)){
+    if (!empty($image)) {
       $data['image'] = $image;
     }
 
@@ -113,8 +114,6 @@ class ClientsController extends RestrictedController
     $clients = Clients::create($data);
 
     return redirect()->back()->with('message', 'Registro cadastrado com sucesso!');
-
-    
   }
   /**
    * Show the form for editing the specified resource.
@@ -136,7 +135,7 @@ class ClientsController extends RestrictedController
     $clients = Clients::find($id);
 
     $clients->image = asset($clients->image);
-    
+
     return view('cms.clients.edit', compact('headers', 'clients'));
   }
 
@@ -154,14 +153,14 @@ class ClientsController extends RestrictedController
     $client = Clients::find($id);
     $data['active'] = CmsHelper::CheckboxCheck(isset($data['active']));
 
-    $validation = $this->validation($data);
+    $validation = $this->validation($data, $id);
     if ($validation->fails()) {
       return redirect()->back()->withErrors($validation)->withInput();
     }
     $image = $client->image;
     if ($request->hasFile('image')) {
       if (!$image = $this->uploadValidFile('clients', $data['image'], 800)) {
-        return redirect()->back()->withErrors(['errors' => 'image cannot be uploaded'])->withInput(); 
+        return redirect()->back()->withErrors(['errors' => 'image cannot be uploaded'])->withInput();
       }
 
       unlink($client->image);
@@ -176,7 +175,7 @@ class ClientsController extends RestrictedController
   public function destroy(Request $request)
   {
     $data = $request->all();
-    
+
     $clients = Clients::whereIn('id', $data['registro'])->get();
     foreach ($clients as $client) {
       if (!empty($client->image)) {
@@ -184,19 +183,28 @@ class ClientsController extends RestrictedController
       }
       $client->delete();
     }
-    
+
     return redirect()->back()->with('message', 'Itens excluídos com sucesso!');
   }
 
-  private function validation(array $data)
+  private function validation(array $data, $id = null)
   {
     $validator = [
-      'cpf' => 'required|string|max:14|unique:clients',
+      'cpf' => [
+        'required',
+        'string',
+        'max:14',
+        'unique:clients,cpf,' . $id,
+        function ($attribute, $value, $fail) {
+          if (!$this->validaCpf($value)) {
+            $fail('CPF inválido');
+          }
+        }
+      ],
       'name' => 'required|string|max:255',
-      'email' => 'required|string|email|max:255|unique:clients',
-/*       'whatsapp' => 'required|string|max:255', 
-      'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', */
-
+      'email' => 'required|string|email|max:255|unique:clients,email,' . $id,
+      // 'whatsapp' => 'required|string|max:255', 
+      // 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ];
 
     $messages = [
@@ -212,13 +220,30 @@ class ClientsController extends RestrictedController
       'whatsapp.max' => 'O número máximo de caracteres é de 255',
       'email.unique' => 'O e-mail informado já está em uso',
       'cpf.unique' => 'O CPF informado já está em uso',
-    
     ];
-
 
     $valid = Validator::make($data, $validator, $messages);
 
-
     return $valid;
+  }
+
+  private function validaCpf($cpf)
+  {
+    $cpf = preg_replace('/[^0-9]/', '', $cpf);
+
+    if (strlen($cpf) != 11) {
+      return false;
+    } else {
+      for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+          $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+          return false;
+        }
+      }
+      return true;
+    }
   }
 }
