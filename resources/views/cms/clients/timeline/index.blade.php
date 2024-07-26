@@ -7,7 +7,7 @@
                     {'icon' : 'fa fa-list', 'title' : 'Lista de Registros', 'active' : false},
                     { 'icon': 'fa fa-plus', 'title': 'Cadastro de Registros', 'active': false },
                 ]" active-tab="{{$errors->any() ? 1 : 0}}">
-            <data-table slot="tabslot_0" title="Lista de Registros" busca="{{$busca}}" url="{{ $data['request']->url() }}" token="{{ csrf_token() }}" :items="{{ json_encode($items) }}" :titles="{{$titles}}" :actions="{{ $actions }}" :not-deletable="false" :show-busca="true" urlsistem="{{ url('/') }}">
+            <data-table-clients slot="tabslot_0" title="Lista de Registros" busca="{{$busca}}" url="{{ $data['request']->url() }}" token="{{ csrf_token() }}" :items="{{ json_encode($items) }}" :titles="{{$titles}}" :actions="{{ $actions }}" :not-deletable="false" :show-busca="true" urlsistem="{{ url('/') }}">
                 @if(session()->has('message'))
                 <div class="row">
                     <div class="col-sm-12">
@@ -19,7 +19,7 @@
                 <span slot="pagination" class="pull-right">
                     {{ $items->links() }}
                 </span>
-            </data-table-cli>
+            </data-table-clients>
             <div slot="tabslot_1">
                 <ui-form form-class="form-horizontal" title="Adicionar Registro" token="{{ csrf_token() }}" url="{{ route('clients.timeline.store', $clients->id) }}" cancel-url="{{ route('clients.timeline.index', $clients->id) }}" method="POST">
 
