@@ -26,7 +26,7 @@ Route::get('login', 'Cms\Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Cms\Auth\LoginController@login');
 
 Route::middleware(['auth'])->group(function () {
-  Route::resource('dashboard', 'Cms\DashboardController');
+  /* Route::resource('dashboard', 'Cms\DashboardController'); */
   Route::resource('configurations', 'Cms\ConfigurationController');
   Route::resource('pages', 'Cms\PageController');
   Route::resource('clients', 'Cms\ClientsController');
@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('blog_categories', 'Cms\BlogCategoriesController');
     Route::resource('blog_posts', 'Cms\BlogPostsController');
     Route::resource('blog_posts.gallery', 'Cms\BlogGalleryController');
-    Route::post('upload-images', 'Cms\UploadImageController@editorUpload')->name('upload-images');
+ /*    Route::post('upload-images', 'Cms\UploadImageController@editorUpload')->name('upload-images'); */
     Route::get('/preview/{slug}', 'Cms\BlogPostsController@preview')->name('blog.preview');
   });
 

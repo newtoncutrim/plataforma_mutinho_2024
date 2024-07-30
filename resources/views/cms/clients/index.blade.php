@@ -108,21 +108,58 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Comentário temporário para campos não utilizados
-                    <div class="row form-group visible2 adendo-field{{ $errors->has('description') ? ' has-error' : '' }}">
-                        <label for="description" class="col-xl-2 col-lg-2 col-sm-2 col-12 text-lg-right text-sm-left">Descrição*</label>
-                        <div class="col-xl-10 col-lg-10 col-sm-10 col-12">
-                            <ui-textarea url="{{ route('upload-images') }}" name="description_adendo" id="full_textarea" value="{{ old('description') }}">
-                            </ui-textarea>
-                            @if ($errors->has('description'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('description') }}</strong>
-                            </span>
-                            @endif
+
+                        {{--                         <div
+                            class="row form-group {{ $errors->has('description') ? ' has-error' : '' }}">
+                            <label for="description"
+                                class="col-xl-2 col-lg-2 col-sm-2 col-12 text-lg-right text-sm-left">Descrição*</label>
+                            <div class="col-xl-10 col-lg-10 col-sm-10 col-12">
+                                <ui-textarea url="{{ route('upload-images') }}" name="description_adendo" id="full_textarea" value="{{ old('description') }}">
+                                </ui-textarea>
+                                @if ($errors->has('description'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div> --}}
+
+                        <div class="form-group row">
+                            <div class="col-sm-6{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="password">Senha*</label>
+                                    <div class="col-sm-8">
+                                        <input required class="form-control" id="password" minlength="0" name="password"
+                                            type="text" value="{{ old('password') }}">
+                                        @if ($errors->has('password'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6{{ $errors->has('image') ? ' has-error' : '' }}">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="image">Imagem*</label>
+                                    <div class="col-sm-8">
+                                        <input type="file" aria-label="Nome" name="image" id="image" required>
+                                        @if ($errors->has('image'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('image') }}</strong>
+                                            </span>
+                                        @endif
+                                        <span class="help-block">
+                                            Tamanho e formato recomendado: 800x450px JPG
+                                        </span>
+                                        <img id="preview" src="" alt="Pré-visualização da imagem"
+                                            style="max-width: 200px; display: none;">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    --}}
-                        <div class="row form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+{{--                         <div class="row form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                             <label class="col-xl-2 col-lg-2 col-sm-2 col-12 text-lg-right text-sm-left">Imagem*</label>
                             <div class="col-xl-10 col-lg-10 col-sm-10 col-12">
                                 <input type="file" aria-label="Nome" name="image" id="image" required>
@@ -138,7 +175,7 @@
                                     style="max-width: 200px; display: none;">
 
                             </div>
-                        </div>
+                        </div> --}}
 
                     </ui-form>
                 </div>

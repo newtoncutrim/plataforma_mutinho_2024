@@ -12,10 +12,11 @@
     "doctrine/dbal": "^2.6",
     "laravel/framework": "^10.0",
     "laravel/helpers": "^1.1",
+    "laravel/sanctum": "^3.3",
     "laravel/tinker": "^2.6.1",
     "laravel/ui": "^4.2",
     "tightenco/ziggy": "^1.8",
-    "tymon/jwt-auth": "*"
+    "tymon/jwt-auth": "^2.1"
   },
   "require-dev": {
     "beyondcode/laravel-dump-server": "^1.0",

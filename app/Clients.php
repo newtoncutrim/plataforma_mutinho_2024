@@ -2,12 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Clients extends Model
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
 
     protected $table = "clients";
     protected $fillable = [
@@ -17,6 +18,7 @@ class Clients extends Model
         'name',
         'slug',
         'whatsapp',
+        'password',
         'image'
     ];
     /**

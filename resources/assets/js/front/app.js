@@ -11,6 +11,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import VueTheMask from 'vue-the-mask'
 import TheBanner from './TheBanner.vue'
 
+
 window.Vue = Vue
 
 Vue.use(VueTheMask)
@@ -25,6 +26,7 @@ const Toast = Swal.mixin({
 window.Toast = Toast
 
 Vue.component('the-banner', TheBanner)
+
 
 const app = new Vue({
   el: '#app',

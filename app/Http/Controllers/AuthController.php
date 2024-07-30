@@ -8,6 +8,7 @@ use App\Services\AuthenticationService;
 
 class AuthController extends Controller
 {
+    protected $authenticationService;
     /**
      * Create a new AuthController instance.
      *
@@ -93,4 +94,5 @@ class AuthController extends Controller
 
         return $user;
     }
+
 }

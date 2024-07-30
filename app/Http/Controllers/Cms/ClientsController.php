@@ -109,6 +109,7 @@ class ClientsController extends RestrictedController
       $data['image'] = $image;
     }
 
+    $data['password'] = bcrypt($data['password']);
     $data['active'] = CmsHelper::CheckboxCheck(isset($data['active']));
     $data['slug'] = $this->getSlug($data['name'], 'clients');
     $clients = Clients::create($data);
@@ -168,6 +169,7 @@ class ClientsController extends RestrictedController
 
     $data['image'] = $image;
 
+    $data['password'] = bcrypt($data['password']);
     $client->update($data);
     return redirect()->route('clients.index')->with('message', 'Registro atualizado com sucesso!');
   }

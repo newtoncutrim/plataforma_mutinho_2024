@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\CustomerAuthController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,4 +31,18 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('me', 'AuthController@me');
     Route::post('register', 'AuthController@register');
+});
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'front'
+], function () {
+    Route::post('login', [CustomerAuthController::class, 'frontLogin']);
+    Route::post('logout', [CustomerAuthController::class, 'frontLogout']);
+});
+
+Route::middleware('auth')->group(function () {
+
+
 });

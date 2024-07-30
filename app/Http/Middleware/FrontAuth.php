@@ -19,7 +19,7 @@ class FrontAuth
         if (isset($_COOKIE['TKNjwt'])) {
             $request->headers->set('Authorization', 'Bearer ' . $_COOKIE['TKNjwt']);
         }
-
+        
         return $next($request);
     }
 }

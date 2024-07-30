@@ -97,6 +97,24 @@
                 </div>
             </div>
             --}}
+                <div class="form-group row">
+                    <div class="col-sm-6{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="row">
+                            <label class="col-sm-4 control-label" for="password">Senha*</label>
+                            <div class="col-sm-8">
+                                <input required class="form-control" id="password" minlength="0" name="password"
+                                    type="text" value="{{ $clients->password }}">
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
                 <div class="row form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                     <label class="col-xl-2 col-lg-2 col-sm-2 col-12 text-lg-right text-sm-left">Imagem*</label>
                     <div class="col-sm-10">

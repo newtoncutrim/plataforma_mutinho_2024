@@ -21,6 +21,7 @@ class CreateClientsTable extends Migration
             $table->string('slug')->nullable();
             $table->string('whatsapp',30)->nullable();
             $table->string('image')->nullable();
+            $table->string('password');
             $table->string('cpf')->unique();
             $table->timestamps();
         });
