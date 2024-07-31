@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\Front\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,8 @@ Route::group([
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+
 /* Route::post('front/login', 'Front\Auth\LoginController@login')->name('front.login'); */
 /* Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', 'Front\Auth\LoginController@showLoginForm')->name('login');
