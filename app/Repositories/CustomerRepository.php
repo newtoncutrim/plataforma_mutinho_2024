@@ -11,4 +11,10 @@ class CustomerRepository extends AbstractRepository
     {
         $this->model = new Clients();
     }
+
+    public function getTimeline($id)
+    {
+        return $this->model->with('timeline')->where('id', $id)->first();
+
+    }
 }

@@ -15,5 +15,20 @@ class CustomerController extends Controller
     }
     public function index()
     {
+        $data = $this->service->getCustomers();
+        if($data['status']){
+            return response()->json($data['data'], $data['code']);
+        }
+        return response()->json($data['data'], $data['code']);
+
+    }
+
+    public function show($id)
+    {
+        $data = $this->service->getTimeline($id);
+        if($data['status']){
+            return response()->json($data['data'], $data['code']);
+        }
+        return response()->json($data['data'], 400);
     }
 }

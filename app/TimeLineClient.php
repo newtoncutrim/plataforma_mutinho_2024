@@ -19,4 +19,9 @@ class TimeLineClient extends Model
         'description',
         'client_id'
     ];
+
+    public function client()
+    {
+        return $this->belongsTo(Clients::class, 'client_id');
+    }
 }

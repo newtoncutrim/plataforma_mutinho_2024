@@ -30,4 +30,9 @@ class Clients extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function timeline()
+    {
+        return $this->hasMany(TimeLineClient::class, 'client_id');
+    }
 }

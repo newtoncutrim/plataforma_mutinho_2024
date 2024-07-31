@@ -42,7 +42,8 @@ Route::group([
     Route::post('logout', [CustomerAuthController::class, 'frontLogout']);
 });
 
-Route::middleware('auth')->group(function () {
+/* Route::middleware('auth')->group(function () { */
+    Route::get('/customers', 'Api\CustomerController@index');
+    Route::get('/customers/{id}', 'Api\CustomerController@show');
 
-
-});
+/* }); */
