@@ -22,7 +22,7 @@ class CustomerController extends Controller
     public function timeline(Request $request)
     {
         $data = $request->all();
-        $customer = Clients::where('id', 1)->first();
+        $customer = Clients::where('id', $data['id'])->first();
         $timelines = TimeLineClient::where('client_id', $customer->id)->paginate(10);
         return view('front.customer.about', compact( 'timelines'));
     }

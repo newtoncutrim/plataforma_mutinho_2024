@@ -4,6 +4,14 @@
 
     <div class="home">
 
+        <div class="men">
+            <ul>
+                <li><a href="">Estrategia Geral</a></li>
+                <li><a href="">Identidade Visual</a></li>
+                <li><a href="">Planejamentos</a></li>
+                <li><a href="">Resultados</a></li>
+            </ul>
+        </div>
         <div class="timeline-info">
             <h2 class="section-title">Timeline Data:</h2>
             <table class="table table-striped table-bordered">
