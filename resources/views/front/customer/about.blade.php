@@ -6,6 +6,7 @@
 
         <div class="men">
             <ul>
+                <li><a href="{{ asset("/timeline?id={$customer->id}") }}">Sobre o Cliente</a></li>
                 <li><a href="">Estrategia Geral</a></li>
                 <li><a href="">Identidade Visual</a></li>
                 <li><a href="">Planejamentos</a></li>
