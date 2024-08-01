@@ -3,19 +3,6 @@
 @section('content')
 
     <div class="home">
-        <h1 class="page-title">Título Principal Customer</h1>
-        <div class="customer-info">
-            <div class="customer-details">
-                <p><strong>ID:</strong> {{$customer->id}}</p>
-                <div class="customer-image">
-                    <img src="{{ asset($customer->image) }}" alt="Customer Image" class="img-thumbnail">
-                </div>
-                <p><strong>Name:</strong> {{$customer->name}}</p>
-                <p><strong>Active:</strong> {{$customer->active == '1' ? 'Yes' : 'No'}}</p>
-                <p><strong>Email:</strong> {{$customer->email}}</p>
-                <p><strong>Whatsapp:</strong> {{$customer->whatsapp}}</p>
-            </div>
-        </div>
 
         <div class="timeline-info">
             <h2 class="section-title">Timeline Data:</h2>

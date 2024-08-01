@@ -15,7 +15,15 @@ class CustomerController extends Controller
         $data = $request->all();
 
         $customer = Clients::where('id', $data['id'])->first();
-        $timelines = TimeLineClient::where('client_id', $data['id'])->paginate(10);
+        $timelines = TimeLineClient::where('client_id', $customer->id)->paginate(10);
         return view('front.customer.index', compact('customer', 'timelines'));
+    }
+
+    public function timeline(Request $request)
+    {
+        $data = $request->all();
+        $customer = Clients::where('id', 1)->first();
+        $timelines = TimeLineClient::where('client_id', $customer->id)->paginate(10);
+        return view('front.customer.about', compact( 'timelines'));
     }
 }

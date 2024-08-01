@@ -5,7 +5,7 @@
     <header>
       <div class="menu">
         <ul>
-            <li><a href="">Sobre o Cliente</a></li>
+            <li><a href="{{asset('/timeline?id=')}}">Sobre o Cliente</a></li>
             <li><a href="">Estrategia Geral</a></li>
             <li><a href="">Identidade Visual</a></li>
             <li><a href="">Planejamentos</a></li>

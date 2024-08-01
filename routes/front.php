@@ -26,7 +26,7 @@ Route::group([
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
-
+Route::get('/timeline', [CustomerController::class, 'timeline'])->name('customer.timeline');
 /* Route::post('front/login', 'Front\Auth\LoginController@login')->name('front.login'); */
 /* Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', 'Front\Auth\LoginController@showLoginForm')->name('login');
