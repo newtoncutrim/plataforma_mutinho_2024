@@ -12,11 +12,11 @@
               <h4 class="text-center col-12">Painel Administrativo</h4>
               <br><br>
               <form @submit.prevent="login" class="form-horizontal col-12">
-                <div class="form-group has-feedback" :class="{ 'form-group has-warning': errors.username }">
-                  <input v-model="username" type="text" class="form-control" placeholder="Usuário" required autofocus>
+                <div class="form-group has-feedback" :class="{ 'form-group has-warning': errors.email }">
+                  <input v-model="email" type="email" class="form-control" placeholder="Usuário" required autofocus>
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                  <span v-if="errors.username" class="help-block">
-                    <strong>{{ errors.username }}</strong>
+                  <span v-if="errors.email" class="help-block">
+                    <strong>{{ errors.email }}</strong>
                   </span>
                 </div>
                 <div class="form-group has-feedback" :class="{ 'form-group has-warning': errors.password }">
@@ -42,6 +42,9 @@
                 </div>
               </form>
             </div>
+            <div v-if="errors.message" id="alert-error">
+              {{ errors.message }}
+            </div>
           </div>
           <!-- /.login-box-body -->
         </div>
@@ -57,7 +60,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      username: '',
+      email: '',
       password: '',
       remember: false,
       errors: {},
@@ -69,7 +72,7 @@ export default {
       this.errors = {};
       try {
         const response = await axios.post('/api/front/login', {
-          email: this.username,
+          email: this.email,
           password: this.password,
           remember: this.remember
         });
@@ -86,15 +89,34 @@ export default {
         window.location.href = `/customer?id=${userId}`;
 
       } catch (error) {
+        let message = error.response.data.error;
+        if (message) {
+          this.errors = { message };
+        }
         if (error.response && error.response.status === 422) {
           this.errors = error.response.data.errors;
         } else {
           console.error('Erro ao fazer login:', error);
         }
+
+        setTimeout(() => {
+          this.errors = {};
+        }, 3000);
       }
     }
   }
 };
+
 </script>
 
-<style scoped></style>
+<style scoped>
+#alert-error {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #f5c6cb;
+  background-color: #f8d7da;
+  color: #721c24;
+  border-radius: 0.25rem;
+  font-size: 14px;
+}
+</style>

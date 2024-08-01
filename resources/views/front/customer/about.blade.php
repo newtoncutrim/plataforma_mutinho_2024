@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        {{-- <div class="timeline-info">
+        <div class="timeline-info">
             <h2 class="section-title">Timeline Data:</h2>
             <table class="table table-striped table-bordered">
                 <thead>
@@ -53,76 +53,7 @@
                 </tbody>
             </table>
 
-            {{ $timelines->links() }} --}}
+            {{ $timelines->links() }}
         </div>
     </div>
 @endsection
-
-<style scoped>
-/* General Styles */
-.home {
-    padding: 20px;
-}
-
-.page-title {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Customer Info Section */
-.customer-info {
-    margin-bottom: 40px;
-}
-
-.section-title {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #555;
-}
-
-.customer-details p {
-    font-size: 1rem;
-    margin: 5px 0;
-}
-
-.customer-image img {
-    border-radius: 8px;
-    border: 1px solid #ddd;
-}
-
-/* Timeline Table */
-.table {
-    width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse;
-}
-
-.table thead th {
-    background-color: #f8f9fa;
-    color: #333;
-    padding: 10px;
-}
-
-.table tbody td {
-    padding: 10px;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
-}
-
-.table-bordered {
-    border: 1px solid #ddd;
-}
-
-.img-thumbnail {
-    border-radius: 4px;
-    max-width: 100px;
-    max-height: 100px;
-}
-
-.audio-player {
-    width: 100%;
-}
-</style>
